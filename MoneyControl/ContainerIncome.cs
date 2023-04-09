@@ -55,11 +55,11 @@ namespace MoneyControl
                 file.WriteLine(value);
             }
         }
-        public void setPosition(string position)
+        public void SetPosition(string position)
         {
             if (int.TryParse(position, out int pos))
             {
-                this.PositionSelected = pos;
+                this.PositionSelected = pos-1;
             }
             else
             {
@@ -76,6 +76,21 @@ namespace MoneyControl
                 menuList += $"{i}. {income.Name}\n";
             }
             return menuList;
+        }
+        public string ShowListValuesForIncomes()
+        {
+            string valuesIncome = "";
+            int i = 0;
+            foreach (var value in incomes[PositionSelected].values)
+            {
+                i++;
+                valuesIncome += $"{i}. {value}\n";
+            }
+            return valuesIncome;
+        }
+        public Income getActiveIncome()
+        {
+            return incomes[PositionSelected];
         }
     }
 }

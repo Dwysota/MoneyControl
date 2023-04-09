@@ -34,18 +34,22 @@
         }
         public void ShowValueToIncomeP1()
         {
+            Console.WriteLine(ContainerIncome.ShowListIncomes());
             Console.WriteLine("Choose income:");
+
         }
-        public void ShowValueToIncomeP2(string name)
+        public void ShowValueToIncomeP2()
         {
-            Console.WriteLine($"Add value to {name}");
+            Console.WriteLine($"Incomes for {ContainerIncome.getActiveIncome().Name}\n");
+            Console.WriteLine(ContainerIncome.ShowListValuesForIncomes());
+            Console.WriteLine($"Add value to {ContainerIncome.getActiveIncome().Name}");
         }
         public void AddNewKindOfIncome()
         {
             Console.WriteLine(ContainerIncome.ShowListIncomes());
             Console.WriteLine("New name income:");
         }
-        public void setPosition(string position)
+        public void SetPosition(string position)
         {
 
             if (int.TryParse(position, out int pos))
@@ -71,6 +75,13 @@
                     break;
                 case 11:
                     this.AddNewKindOfIncome();
+                    break;
+                case 12:
+                    this.ShowValueToIncomeP1();
+                    if(ContainerIncome.PositionSelected != -1)
+                    {
+                        ShowValueToIncomeP2 ();
+                    }
                     break;
                 default:
                     break;

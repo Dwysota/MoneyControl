@@ -1,9 +1,11 @@
-﻿namespace MoneyControl
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace MoneyControl
 {
     public abstract class Transaction : ITransaction
     {
         public string Name { get; private set; }
-        private List<double> values = new List<double>();
+        public List<double> values = new List<double>();
 
         public Transaction(string name)
         {
