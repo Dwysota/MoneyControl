@@ -32,35 +32,35 @@
         // Menage display for incomes
         public void ShowIncomesMenu()
         {
-            Console.WriteLine(ContainerIncome.ShowListIncomes());
+            Console.WriteLine(ContainerIncome.ShowList());
             Console.WriteLine("11. Add new income.\n12. Add value to income.\n");
         }
         public void ShowValueToIncomeP1()
         {
-            Console.WriteLine(ContainerIncome.ShowListIncomes());
+            Console.WriteLine(ContainerIncome.ShowList());
             Console.WriteLine("Choose income:");
 
         }
         public void ShowValueToIncomeP2()
         {
-            Console.WriteLine($"Incomes for {ContainerIncome.getActiveIncome().Name}\n");
-            Console.WriteLine(ContainerIncome.ShowListValuesForIncomes());
-            Console.WriteLine($"Add value to {ContainerIncome.getActiveIncome().Name}");
+            Console.WriteLine($"Incomes for {ContainerIncome.getActiveName()}\n");
+            Console.WriteLine(ContainerIncome.ShowListValues());
+            Console.WriteLine($"Add value to {ContainerIncome.getActiveName()}");
         }
         public void AddNewKindOfIncome()
         {
-            Console.WriteLine(ContainerIncome.ShowListIncomes());
+            Console.WriteLine(ContainerIncome.ShowList());
             Console.WriteLine("New name income:");
         }
         // Menage display for outlay
         public void ShowOutlaysMenu()
         {
-            Console.WriteLine(ContainerOutlay.ShowListOutlays());
+            Console.WriteLine(ContainerOutlay.ShowList());
             Console.WriteLine("21. Add new outlay.\n22. Add value to outlay.\n");
         }
         public void ShowValueToOutlayP1()
         {
-            Console.WriteLine(ContainerOutlay.ShowListOutlays());
+            Console.WriteLine(ContainerOutlay.ShowList());
             Console.WriteLine("Choose outlay:");
 
         }
@@ -68,13 +68,13 @@
 
         public void ShowValueToOutlayP2()
         {
-            Console.WriteLine($"Outlays for {ContainerOutlay.getActiveOutlay().Name}\n");
-            Console.WriteLine(ContainerOutlay.ShowListValuesForOutlays());
-            Console.WriteLine($"Add value to {ContainerOutlay.getActiveOutlay().Name}");
+            Console.WriteLine($"Outlays for {ContainerOutlay.getActiveName()}\n");
+            Console.WriteLine(ContainerOutlay.ShowListValues());
+            Console.WriteLine($"Add value to {ContainerOutlay.getActiveName()}");
         }
         public void AddNewKindOfOutlay()
         {
-            Console.WriteLine(ContainerOutlay.ShowListOutlays());
+            Console.WriteLine(ContainerOutlay.ShowList());
             Console.WriteLine("New name outlay:");
         }
         public void SetPosition(string position)

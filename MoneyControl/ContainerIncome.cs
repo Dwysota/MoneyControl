@@ -1,26 +1,28 @@
 ﻿
 namespace MoneyControl
 {
-    public class ContainerIncome
+    public class ContainerIncome : ContainerBase
     {
-        private const string FileNamesIncomes = "NamesIncomes.txt";
-        private const string FilePrefixValuesIncomes = "ValuesIncomes-";
-        List<Income> incomes = new List<Income>();
-        public int PositionSelected { get; set; }
-        public ContainerIncome()
+        List<TransactionIncome> incomes = new List<TransactionIncome>();
+        public ContainerIncome() : base(TransactionIncome.KIND_TRANSACTION)
         {
-            PositionSelected = -1;
-            if (File.Exists(FileNamesIncomes))
+            loadData();
+        }
+        public override void loadData()
+        {
+            if (File.Exists(FileName))
             {
-                using (var file = File.OpenText(FileNamesIncomes))
+                using (var file = File.OpenText(FileName))
                 {
                     var line = file.ReadLine();
                     while (line != null)
                     {
-                        incomes.Add(new Income(line));
-                        if (File.Exists($"{FilePrefixValuesIncomes}{line}.txt"))
+                        incomes.Add(new TransactionIncome(line));
+                        string rrr = $"{Folder}/ {TransactionBase.FOLDER_VALUES} /{line}.txt";
+                        if (File.Exists($"{Folder}/{TransactionBase.FOLDER_VALUES}/{line}.txt"))
                         {
-                            using (var fileValues = File.OpenText($"{FilePrefixValuesIncomes}{line}.txt"))
+                            
+                            using (var fileValues = File.OpenText($"{Folder}/{TransactionBase.FOLDER_VALUES}/{line}.txt"))
                             {
                                 var lineValue = fileValues.ReadLine();
                                 while (lineValue != null)
@@ -38,24 +40,19 @@ namespace MoneyControl
                 }
             }
         }
-        public void AddNewNameIncome(string name)
+        public void AddNewName(string name)
         {
-            incomes.Add(new Income(name));
-            using (var file = File.AppendText(FileNamesIncomes))
-            {
-                file.WriteLine(name);
-            }
+            incomes.Add(new TransactionIncome(name));
+            base.AddNewName(name);
         }
 
-        public void AddValueToIncome(string value)
+        public override void AddValue(string value, string name)
         {
             this.incomes[PositionSelected].AddTransactionValue(value);
-            using (var file = File.AppendText($"{FilePrefixValuesIncomes}{this.incomes[PositionSelected].Name}.txt"))
-            {
-                file.WriteLine(value);
-            }
+            base.AddValue(value, name);
+            
         }
-        public void SetPosition(string position)
+        public override void SetPosition(string position)
         {
             if (int.TryParse(position, out int pos))
             {
@@ -70,7 +67,7 @@ namespace MoneyControl
                 throw new Exception("Wrong value for name of income.");
             }
         }
-        public string ShowListIncomes()
+        public override string ShowList()
         {
             string menuList = "";
             int i = 0;
@@ -81,7 +78,7 @@ namespace MoneyControl
             }
             return menuList;
         }
-        public string ShowListValuesForIncomes()
+        public override string ShowListValues()
         {
             string valuesIncome = "";
             int i = 0;
@@ -92,9 +89,9 @@ namespace MoneyControl
             }
             return valuesIncome;
         }
-        public Income getActiveIncome()
+        public override string getActiveName()
         {
-            return incomes[PositionSelected];
+            return incomes[PositionSelected].Name;
         }
     }
 }

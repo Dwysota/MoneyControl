@@ -1,14 +1,15 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace MoneyControl
+﻿namespace MoneyControl
 {
-    public abstract class Transaction : ITransaction
+    public abstract class TransactionBase : ITransaction
     {
+        public const string FILE_NAMES_TRANSACTION = "Names.txt";
+        public const string FOLDER_VALUES = "Values";
         public string Name { get; private set; }
         public List<double> values = new List<double>();
 
-        public Transaction(string name)
+        public TransactionBase(string name)
         {
+            if(name == null) throw new ArgumentNullException("name");
             this.Name = name;
         }
         public virtual void AddTransactionValue(double value)

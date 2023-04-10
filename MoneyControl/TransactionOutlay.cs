@@ -1,14 +1,19 @@
 ﻿namespace MoneyControl
 {
-    public class Income : Transaction
+    public class TransactionOutlay : TransactionBase
     {
-        public Income(string name) : base(name) 
-        { 
+        public const int KIND_TRANSACTION = 2;
+        public const string FOLDER_TRANSACTION = "Outlays";
+        
+        public TransactionOutlay(string name) : base(name)
+        {
+
         }
 
         public override void AddTransactionValue(double value)
         {
             base.AddTransactionValue(value);
+            
         }
         public override void AddTransactionValue(string value)
         {
@@ -29,6 +34,5 @@
         {
             this.AddTransactionValue((double)value);
         }
-
     }
 }

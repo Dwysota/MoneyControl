@@ -1,25 +1,27 @@
 ﻿namespace MoneyControl
 {
-    public class ContainerOutlay
+    public class ContainerOutlay : ContainerBase
     {
-        private const string FileNamesOutlays = "NamesOutlays.txt";
-        private const string FilePrefixValuesOutlays = "ValuesOutlays-";
-        List<Outlay> outlays = new List<Outlay>();
-        public int PositionSelected { get; set; }
-        public ContainerOutlay()
+
+        List<TransactionOutlay> outlays = new List<TransactionOutlay>();
+
+        public ContainerOutlay() : base(TransactionOutlay.KIND_TRANSACTION)
         {
-            PositionSelected = -1;
-            if (File.Exists(FileNamesOutlays))
+            loadData();
+        }
+        public override void loadData()
+        {
+            if (File.Exists(FileName))
             {
-                using (var file = File.OpenText(FileNamesOutlays))
+                using (var file = File.OpenText(FileName))
                 {
                     var line = file.ReadLine();
                     while (line != null)
                     {
-                        outlays.Add(new Outlay(line));
-                        if (File.Exists($"{FilePrefixValuesOutlays}{line}.txt"))
+                        outlays.Add(new TransactionOutlay(line));
+                        if (File.Exists($"{Folder}/{TransactionBase.FOLDER_VALUES}/{line}.txt"))
                         {
-                            using (var fileValues = File.OpenText($"{FilePrefixValuesOutlays}{line}.txt"))
+                            using (var fileValues = File.OpenText($"{Folder}/{TransactionBase.FOLDER_VALUES}/{line}.txt"))
                             {
                                 var lineValue = fileValues.ReadLine();
                                 while (lineValue != null)
@@ -37,24 +39,18 @@
                 }
             }
         }
-        public void AddNewNameOutlay(string name)
+        public void AddNewName(string name)
         {
-            outlays.Add(new Outlay(name));
-            using (var file = File.AppendText(FileNamesOutlays))
-            {
-                file.WriteLine(name);
-            }
+            outlays.Add(new TransactionOutlay(name));
+            base.AddNewName(name);
         }
 
-        public void AddValueToOutlay(string value)
+        public override void AddValue(string value, string name)
         {
             this.outlays[PositionSelected].AddTransactionValue(value);
-            using (var file = File.AppendText($"{FilePrefixValuesOutlays}{this.outlays[PositionSelected].Name}.txt"))
-            {
-                file.WriteLine(value);
-            }
+            base.AddValue(value, name);
         }
-        public void SetPosition(string position)
+        public override void SetPosition(string position)
         {
             if (int.TryParse(position, out int pos))
             {
@@ -62,14 +58,14 @@
                 {
                     this.PositionSelected = pos - 1;
                 }
-                    
+
             }
             else
             {
                 throw new Exception("Wrong value for name of Outlay.");
             }
         }
-        public string ShowListOutlays()
+        public override string ShowList()
         {
             string menuList = "";
             int i = 0;
@@ -80,7 +76,7 @@
             }
             return menuList;
         }
-        public string ShowListValuesForOutlays()
+        public override string ShowListValues()
         {
             string valuesOutlay = "";
             int i = 0;
@@ -91,9 +87,9 @@
             }
             return valuesOutlay;
         }
-        public Outlay getActiveOutlay()
+        public override string getActiveName()
         {
-            return  outlays[PositionSelected];
+            return outlays[PositionSelected].Name;
         }
     }
 }

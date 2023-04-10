@@ -34,7 +34,7 @@ while (true)
                         display.SetPosition("1");
                         break;
                     }
-                    containerIncome.AddNewNameIncome(input);
+                    containerIncome.AddNewName(input);
                     display.ContainerIncome = containerIncome;
                 }
                 break;
@@ -61,7 +61,7 @@ while (true)
                             display.ContainerIncome = containerIncome;
                             break;
                         }
-                        containerIncome.AddValueToIncome(value);
+                        containerIncome.AddValue(value, containerIncome.getActiveName());
                     }
                 }
                 break;
@@ -75,7 +75,7 @@ while (true)
                         display.SetPosition("2");
                         break;
                     }
-                    containerOutlay.AddNewNameOutlay(input);
+                    containerOutlay.AddNewName(input);
                     display.ContainerOutlay = containerOutlay;
                 }
                 break;
@@ -102,7 +102,7 @@ while (true)
                             display.ContainerOutlay = containerOutlay;
                             break;
                         }
-                        containerOutlay.AddValueToOutlay(value);
+                        containerOutlay.AddValue(value, containerOutlay.getActiveName());
                     }
                 }
                 break;

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MoneyControl
+﻿namespace MoneyControl
 {
-    public class Outlay : Transaction
+    public class TransactionIncome : TransactionBase
     {
-        public Outlay(string name) : base(name)
-        {
+        public const int KIND_TRANSACTION = 1;
+        public const string FOLDER_TRANSACTION = "Incomes";
+        public TransactionIncome(string name) : base(name) 
+        { 
         }
 
         public override void AddTransactionValue(double value)
@@ -35,5 +31,6 @@ namespace MoneyControl
         {
             this.AddTransactionValue((double)value);
         }
+
     }
 }
