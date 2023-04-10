@@ -3,6 +3,8 @@
 Display display = new Display();
 ContainerIncome containerIncome = new ContainerIncome();
 display.ContainerIncome = containerIncome;
+ContainerOutlay containerOutlay = new ContainerOutlay();
+display.ContainerOutlay = containerOutlay;
 while (true)
 {
     try
@@ -29,7 +31,7 @@ while (true)
                     var input = Console.ReadLine();
                     if (input == "b")
                     {
-                        display.SetPosition("0");
+                        display.SetPosition("1");
                         break;
                     }
                     containerIncome.AddNewNameIncome(input);
@@ -54,11 +56,53 @@ while (true)
                         var value = Console.ReadLine();
                         if (value == "b")
                         {
+                            display.SetPosition("12");
                             containerIncome.SetPosition("0");
                             display.ContainerIncome = containerIncome;
                             break;
                         }
                         containerIncome.AddValueToIncome(value);
+                    }
+                }
+                break;
+            case 21:
+                while (true)
+                {
+                    display.Show();
+                    var input = Console.ReadLine();
+                    if (input == "b")
+                    {
+                        display.SetPosition("2");
+                        break;
+                    }
+                    containerOutlay.AddNewNameOutlay(input);
+                    display.ContainerOutlay = containerOutlay;
+                }
+                break;
+            case 22:
+                while (true)
+                {
+                    display.Show();
+                    var input = Console.ReadLine();
+                    if (input == "b")
+                    {
+                        display.SetPosition("2");
+                        break;
+                    }
+                    containerOutlay.SetPosition(input);
+                    display.ContainerOutlay = containerOutlay;
+                    while (true)
+                    {
+                        display.Show();
+                        var value = Console.ReadLine();
+                        if (value == "b")
+                        {
+                            display.SetPosition("22");
+                            containerOutlay.SetPosition("0");
+                            display.ContainerOutlay = containerOutlay;
+                            break;
+                        }
+                        containerOutlay.AddValueToOutlay(value);
                     }
                 }
                 break;

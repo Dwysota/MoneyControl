@@ -59,7 +59,11 @@ namespace MoneyControl
         {
             if (int.TryParse(position, out int pos))
             {
-                this.PositionSelected = pos-1;
+                if (pos - 1 >= -1)
+                {
+                    this.PositionSelected = pos - 1;
+                }
+
             }
             else
             {
