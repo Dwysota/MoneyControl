@@ -3,7 +3,6 @@
 
     public interface IContainerTransaction
     {
-        int PositionSelected { get; set; }
         void loadData();
         string ShowList();
         string ShowListValues();

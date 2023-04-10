@@ -3,7 +3,7 @@
     public class TransactionIncome : TransactionBase
     {
         public const int KIND_TRANSACTION = 1;
-        public const string FOLDER_TRANSACTION = "Incomes";
+        public static string FOLDER_TRANSACTION = "Incomes";
         public TransactionIncome(string name) : base(name) 
         { 
         }

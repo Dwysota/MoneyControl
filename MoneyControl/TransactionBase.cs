@@ -2,8 +2,8 @@
 {
     public abstract class TransactionBase : ITransaction
     {
-        public const string FILE_NAMES_TRANSACTION = "Names.txt";
-        public const string FOLDER_VALUES = "Values";
+        public static string FILE_NAMES_TRANSACTION = "Names.txt";
+        public static string FOLDER_VALUES = "Values";
         public string Name { get; private set; }
         public List<double> values = new List<double>();
 

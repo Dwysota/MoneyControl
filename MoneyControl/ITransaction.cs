@@ -2,7 +2,7 @@
 {
     public interface ITransaction
     {
-        public const string FILE_PREFIX_NAMES_TRANSACTION = "Names";
+        public static string FILE_PREFIX_NAMES_TRANSACTION = "Names";
         string Name { get; }
         void AddTransactionValue(double value);
         void AddTransactionValue(float value);

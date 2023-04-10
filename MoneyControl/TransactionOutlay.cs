@@ -2,8 +2,8 @@
 {
     public class TransactionOutlay : TransactionBase
     {
-        public const int KIND_TRANSACTION = 2;
-        public const string FOLDER_TRANSACTION = "Outlays";
+        public const  int KIND_TRANSACTION = 2;
+        public static  string FOLDER_TRANSACTION = "Outlays";
         
         public TransactionOutlay(string name) : base(name)
         {

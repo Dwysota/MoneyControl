@@ -5,9 +5,9 @@ namespace MoneyControl
 
     public abstract class ContainerBase : IContainerTransaction
     {
-        public int PositionSelected { get; set; }
-        protected string FileName { get; set; }
-        protected string Folder;
+        public int PositionSelected { get;  protected set; }
+        protected string FileName {  get; private set; }
+        protected string Folder { get; private set; }
         public ContainerBase(int kindTransaction)
         {
             if (!Directory.Exists(TransactionIncome.FOLDER_TRANSACTION)){
