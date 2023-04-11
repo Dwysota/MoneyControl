@@ -4,11 +4,6 @@
     {
         public int position = 0;
         private const string HeaderProgram = "\t\t\tControl your money!!!\n---------------------------------------------------------------------------\n\t(b - back, q - quit (in main menu))\n";
-
-        private const string MainMenuList = "\tMain menu:\n--------------------------\n" +
-                                            "1. Incomes\n" +
-                                            "2. Outlay\n" +
-                                            "3. Show statistics\n";
         public ContainerIncome ContainerIncome { private get; set; }
         public ContainerOutlay ContainerOutlay { private get; set; }
 
@@ -21,6 +16,10 @@
 
         public void ShowMainMenu()
         {
+            string MainMenuList = "\tMain menu:\n--------------------------\n" +
+                                 $"1. Incomes (Summary: {ContainerIncome.GetContainerStatistics().Sum})\n" +
+                                 $"2. Outlay (Summary: {ContainerOutlay.GetContainerStatistics().Sum})\n" +
+                                  "3. Show statistics\n";
             Console.WriteLine(MainMenuList);
         }
         public void ShowException(string excepption)
@@ -43,9 +42,9 @@
         }
         public void ShowValueToIncomeP2()
         {
-            Console.WriteLine($"Incomes for {ContainerIncome.getActiveName()}\n");
+            Console.WriteLine($"Incomes for {ContainerIncome.GetActiveName()}\n");
             Console.WriteLine(ContainerIncome.ShowListValues());
-            Console.WriteLine($"Add value to {ContainerIncome.getActiveName()}");
+            Console.WriteLine($"Add value to {ContainerIncome.GetActiveName()}");
         }
         public void AddNewKindOfIncome()
         {
@@ -68,9 +67,9 @@
 
         public void ShowValueToOutlayP2()
         {
-            Console.WriteLine($"Outlays for {ContainerOutlay.getActiveName()}\n");
+            Console.WriteLine($"Outlays for {ContainerOutlay.GetActiveName()}\n");
             Console.WriteLine(ContainerOutlay.ShowListValues());
-            Console.WriteLine($"Add value to {ContainerOutlay.getActiveName()}");
+            Console.WriteLine($"Add value to {ContainerOutlay.GetActiveName()}");
         }
         public void AddNewKindOfOutlay()
         {

@@ -61,7 +61,7 @@ while (true)
                             display.ContainerIncome = containerIncome;
                             break;
                         }
-                        containerIncome.AddValue(value, containerIncome.getActiveName());
+                        containerIncome.AddValue(value, containerIncome.GetActiveName());
                     }
                 }
                 break;
@@ -102,7 +102,7 @@ while (true)
                             display.ContainerOutlay = containerOutlay;
                             break;
                         }
-                        containerOutlay.AddValue(value, containerOutlay.getActiveName());
+                        containerOutlay.AddValue(value, containerOutlay.GetActiveName());
                     }
                 }
                 break;

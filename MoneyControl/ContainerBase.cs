@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace MoneyControl
+﻿namespace MoneyControl
 {
 
     public abstract class ContainerBase : IContainerTransaction
@@ -8,7 +6,7 @@ namespace MoneyControl
         public int PositionSelected { get;  protected set; }
         protected string FileName {  get; private set; }
         protected string Folder { get; private set; }
-        public ContainerBase(int kindTransaction)
+        protected ContainerBase(int kindTransaction)
         {
             if (!Directory.Exists(TransactionIncome.FOLDER_TRANSACTION)){
                 Directory.CreateDirectory($"{TransactionIncome.FOLDER_TRANSACTION}/{TransactionBase.FOLDER_VALUES}");
@@ -34,7 +32,7 @@ namespace MoneyControl
             }
             PositionSelected = -1;
         }
-        public abstract void loadData();
+        protected abstract void loadData();
         public abstract string ShowListValues();
         public abstract string ShowList();
         public virtual void AddNewName(string name)
@@ -53,6 +51,7 @@ namespace MoneyControl
             }
         }
         public abstract void SetPosition(string position);
-        public abstract string getActiveName();
+        public abstract string GetActiveName();
+        public abstract StatisticsBase GetContainerStatistics();
     }
 }

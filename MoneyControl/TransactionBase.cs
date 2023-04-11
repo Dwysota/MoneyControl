@@ -7,7 +7,7 @@
         public string Name { get; private set; }
         public List<double> values = new List<double>();
 
-        public TransactionBase(string name)
+        protected TransactionBase(string name)
         {
             if(name == null) throw new ArgumentNullException("name");
             this.Name = name;
@@ -23,7 +23,10 @@
                 throw new Exception("Value is not valid.");
             }
         }
-
+        public StatisticsBase getStatistic()
+        {
+            return new StatisticsBase(Name, values.ToArray());
+        }
         public abstract void AddTransactionValue(float value);
         public abstract void AddTransactionValue(int value);
         public abstract void AddTransactionValue(string value);

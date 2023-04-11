@@ -8,7 +8,7 @@ namespace MoneyControl
         {
             loadData();
         }
-        public override void loadData()
+        protected override void loadData()
         {
             if (File.Exists(FileName))
             {
@@ -40,7 +40,7 @@ namespace MoneyControl
                 }
             }
         }
-        public void AddNewName(string name)
+        public override void AddNewName(string name)
         {
             incomes.Add(new TransactionIncome(name));
             base.AddNewName(name);
@@ -89,9 +89,14 @@ namespace MoneyControl
             }
             return valuesIncome;
         }
-        public override string getActiveName()
+        public override string GetActiveName()
         {
             return incomes[PositionSelected].Name;
+        }
+        public override StatisticsBase GetContainerStatistics()
+        {
+            ContainerStatistics containerStatistics = new ContainerStatistics(incomes);
+            return containerStatistics.getContainerStatistics();
         }
     }
 }

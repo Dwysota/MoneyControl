@@ -9,7 +9,7 @@
         {
             loadData();
         }
-        public override void loadData()
+        protected override void loadData()
         {
             if (File.Exists(FileName))
             {
@@ -39,7 +39,7 @@
                 }
             }
         }
-        public void AddNewName(string name)
+        public override void AddNewName(string name)
         {
             outlays.Add(new TransactionOutlay(name));
             base.AddNewName(name);
@@ -87,9 +87,14 @@
             }
             return valuesOutlay;
         }
-        public override string getActiveName()
+        public override string GetActiveName()
         {
             return outlays[PositionSelected].Name;
+        }
+        public override StatisticsBase GetContainerStatistics()
+        {
+            ContainerStatistics containerStatistics= new ContainerStatistics(outlays);
+            return containerStatistics.getContainerStatistics();
         }
     }
 }
