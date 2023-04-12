@@ -5,8 +5,6 @@ ContainerOutlay containerOutlay = new ContainerOutlay();
 ContainerIncome containerIncome = new ContainerIncome();
 Display display = new Display(containerIncome, containerOutlay);
 
-
-
 display.OnUpdateDisplay += updateDisplay;
 containerIncome.OnAddTransaction += updateDisplay;
 containerOutlay.OnAddTransaction += updateDisplay;
