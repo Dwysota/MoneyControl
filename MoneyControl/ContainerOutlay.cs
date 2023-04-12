@@ -67,23 +67,23 @@
         }
         public override string ShowList()
         {
-            string menuList = "";
+            string menuList = "------List of Outlays\n";
             int i = 0;
-            foreach (var Outlay in outlays)
+            foreach (var outlay in outlays)
             {
                 i++;
-                menuList += $"{i}. {Outlay.Name}\n";
+                menuList += $"| {i}. {outlay.Name} (Summary: {outlay.getStatistic().Sum})\n";
             }
             return menuList;
         }
         public override string ShowListValues()
         {
-            string valuesOutlay = "";
+            string valuesOutlay = "------List of values\n";
             int i = 0;
             foreach (var value in outlays[PositionSelected].values)
             {
                 i++;
-                valuesOutlay += $"{i}. {value}\n";
+                valuesOutlay += $"| {i}. {value}\n";
             }
             return valuesOutlay;
         }
@@ -93,7 +93,7 @@
         }
         public override StatisticsBase GetContainerStatistics()
         {
-            ContainerStatistics containerStatistics= new ContainerStatistics(outlays);
+            ContainerStatistics containerStatistics = new ContainerStatistics(outlays);
             return containerStatistics.getContainerStatistics();
         }
     }

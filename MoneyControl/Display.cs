@@ -2,12 +2,39 @@
 {
     public class Display
     {
+        public delegate void UpdateDisplay(Object value, EventArgs args);
+        public event UpdateDisplay OnUpdateDisplay;
         public int position = 0;
-        private const string HeaderProgram = "\t\t\tControl your money!!!\n---------------------------------------------------------------------------\n\t(b - back, q - quit (in main menu))\n";
-        public ContainerIncome ContainerIncome { private get; set; }
-        public ContainerOutlay ContainerOutlay { private get; set; }
-
-
+        private const string HeaderProgram = "\t\t\tControl your money!!!\n" +
+            "---------------------------------------------------------------------------\n" +
+            "\t(b - back, q - quit (in main menu))\n";
+        private ContainerIncome ContainerIncome { get; set; }
+        private ContainerOutlay ContainerOutlay { get; set; }
+        public GeneralStatistics GeneralStatistics { get; private set; }
+        public Display(ContainerIncome conIncome, ContainerOutlay conOutlay)
+        {
+            ContainerIncome = conIncome;
+            ContainerOutlay = conOutlay;
+            GeneralStatistics = new GeneralStatistics(ContainerIncome.GetContainerStatistics(), ContainerOutlay.GetContainerStatistics());
+        }
+        public void updateContainer(ContainerIncome conIncome)
+        {
+            ContainerIncome = conIncome;
+            GeneralStatistics.Update(ContainerIncome.GetContainerStatistics(), ContainerOutlay.GetContainerStatistics());
+            if (OnUpdateDisplay != null)
+            {
+                OnUpdateDisplay(this, new EventArgs());
+            }
+        }
+        public void updateContainer(ContainerOutlay conOutlay)
+        {
+            ContainerOutlay = conOutlay;
+            GeneralStatistics.Update(ContainerIncome.GetContainerStatistics(), ContainerOutlay.GetContainerStatistics());
+            if (OnUpdateDisplay != null)
+            {
+                OnUpdateDisplay(this, new EventArgs());
+            }
+        }
         public void ShowHeader()
         {
             Console.Clear();
@@ -19,7 +46,7 @@
             string MainMenuList = "\tMain menu:\n--------------------------\n" +
                                  $"1. Incomes (Summary: {ContainerIncome.GetContainerStatistics().Sum})\n" +
                                  $"2. Outlay (Summary: {ContainerOutlay.GetContainerStatistics().Sum})\n" +
-                                  "3. Show statistics\n";
+                                 $"3. Show statistics (Balance: {GeneralStatistics.Balance})\n";
             Console.WriteLine(MainMenuList);
         }
         public void ShowException(string excepption)
@@ -32,12 +59,13 @@
         public void ShowIncomesMenu()
         {
             Console.WriteLine(ContainerIncome.ShowList());
+            Console.WriteLine("------Options");
             Console.WriteLine("11. Add new income.\n12. Add value to income.\n");
         }
         public void ShowValueToIncomeP1()
         {
             Console.WriteLine(ContainerIncome.ShowList());
-            Console.WriteLine("Choose income:");
+            Console.WriteLine("------Choose income:\n");
 
         }
         public void ShowValueToIncomeP2()
@@ -49,18 +77,19 @@
         public void AddNewKindOfIncome()
         {
             Console.WriteLine(ContainerIncome.ShowList());
-            Console.WriteLine("New name income:");
+            Console.WriteLine("------New kind of income:");
         }
         // Menage display for outlay
         public void ShowOutlaysMenu()
         {
             Console.WriteLine(ContainerOutlay.ShowList());
+            Console.WriteLine("------Options");
             Console.WriteLine("21. Add new outlay.\n22. Add value to outlay.\n");
         }
         public void ShowValueToOutlayP1()
         {
             Console.WriteLine(ContainerOutlay.ShowList());
-            Console.WriteLine("Choose outlay:");
+            Console.WriteLine("------Choose outlay:");
 
         }
 
@@ -74,7 +103,7 @@
         public void AddNewKindOfOutlay()
         {
             Console.WriteLine(ContainerOutlay.ShowList());
-            Console.WriteLine("New name outlay:");
+            Console.WriteLine("New kind of outlay:");
         }
         public void SetPosition(string position)
         {
@@ -82,6 +111,10 @@
             if (int.TryParse(position, out int pos))
             {
                 this.position = pos;
+                if (OnUpdateDisplay != null)
+                {
+                    OnUpdateDisplay(this, new EventArgs());
+                }
             }
             else
             {

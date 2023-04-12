@@ -3,6 +3,8 @@
 
     public abstract class ContainerBase : IContainerTransaction
     {
+        public delegate void AddTransaction(Object value, EventArgs args);
+        public event AddTransaction OnAddTransaction;
         public int PositionSelected { get;  protected set; }
         protected string FileName {  get; private set; }
         protected string Folder { get; private set; }
@@ -41,6 +43,10 @@
             {
                 file.WriteLine(name);
             }
+            if (OnAddTransaction != null)
+            {
+                OnAddTransaction(this, new EventArgs());
+            }
         }
 
         public virtual void AddValue(string value, string name)
@@ -49,8 +55,18 @@
             {
                 file.WriteLine(value);
             }
+            if (OnAddTransaction != null)
+            {
+                OnAddTransaction(this, new EventArgs());
+            }
         }
-        public abstract void SetPosition(string position);
+        public virtual void SetPosition(string position)
+        {
+            if (OnAddTransaction != null)
+            {
+                OnAddTransaction(this, new EventArgs());
+            }
+        }
         public abstract string GetActiveName();
         public abstract StatisticsBase GetContainerStatistics();
     }

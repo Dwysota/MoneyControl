@@ -2,14 +2,18 @@
 {
     public abstract class TransactionBase : ITransaction
     {
+        public delegate void AddTransactionValueDel(Object value, EventArgs args);
+        public event AddTransactionValueDel OnAddTransactionValue;
         public static string FILE_NAMES_TRANSACTION = "Names.txt";
         public static string FOLDER_VALUES = "Values";
+
+
         public string Name { get; private set; }
         public List<double> values = new List<double>();
 
         protected TransactionBase(string name)
         {
-            if(name == null) throw new ArgumentNullException("name");
+            if (name == null) throw new ArgumentNullException("name");
             this.Name = name;
         }
         public virtual void AddTransactionValue(double value)
@@ -17,6 +21,7 @@
             if (value > 0)
             {
                 values.Add(value);
+
             }
             else
             {

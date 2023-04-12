@@ -21,7 +21,7 @@ namespace MoneyControl
                         string rrr = $"{Folder}/ {TransactionBase.FOLDER_VALUES} /{line}.txt";
                         if (File.Exists($"{Folder}/{TransactionBase.FOLDER_VALUES}/{line}.txt"))
                         {
-                            
+
                             using (var fileValues = File.OpenText($"{Folder}/{TransactionBase.FOLDER_VALUES}/{line}.txt"))
                             {
                                 var lineValue = fileValues.ReadLine();
@@ -44,13 +44,15 @@ namespace MoneyControl
         {
             incomes.Add(new TransactionIncome(name));
             base.AddNewName(name);
+
         }
 
         public override void AddValue(string value, string name)
         {
             this.incomes[PositionSelected].AddTransactionValue(value);
             base.AddValue(value, name);
-            
+
+
         }
         public override void SetPosition(string position)
         {
@@ -69,23 +71,23 @@ namespace MoneyControl
         }
         public override string ShowList()
         {
-            string menuList = "";
+            string menuList = "------List of Incomes\n";
             int i = 0;
             foreach (var income in incomes)
             {
                 i++;
-                menuList += $"{i}. {income.Name}\n";
+                menuList += $"| {i}. {income.Name} (Summary: {income.getStatistic().Sum})\n";
             }
             return menuList;
         }
         public override string ShowListValues()
         {
-            string valuesIncome = "";
+            string valuesIncome = "------List of values\n";
             int i = 0;
             foreach (var value in incomes[PositionSelected].values)
             {
                 i++;
-                valuesIncome += $"{i}. {value}\n";
+                valuesIncome += $"| {i}. {value}\n";
             }
             return valuesIncome;
         }
