@@ -9,7 +9,10 @@ namespace MoneyControl
         {
             get
             {
-                
+                if (values.Length == 0)
+                {
+                    return 0;
+                }
                 return values.Sum();
             }
         }
@@ -17,13 +20,21 @@ namespace MoneyControl
         {
             get
             {
-                return values.Average();
+                if (values.Length == 0)
+                {
+                    return 0;
+                }
+                return Math.Round(values.Average(),2);
             }
         }
         public double Min
         {
             get
             {
+                if (values.Length == 0)
+                {
+                    return 0;
+                }
                 return values.Min();
             }
         }
@@ -31,6 +42,10 @@ namespace MoneyControl
         {
             get
             {
+                if (values.Length == 0)
+                {
+                    return 0;
+                }
                 return values.Max();
             }
         }
@@ -59,14 +74,14 @@ namespace MoneyControl
         }
         public StatisticsBase(double[] a, double[] b)
         {
-            values = new double[a.Length+b.Length];
+            values = new double[a.Length + b.Length];
             Array.Copy(a, values, a.Length);
             Array.Copy(b, 0, values, a.Length, b.Length);
         }
 
         public static StatisticsBase operator +(StatisticsBase a, StatisticsBase b)
         {
-            return new StatisticsBase(a.values,b.values);
+            return new StatisticsBase(a.values, b.values);
         }
     }
 }

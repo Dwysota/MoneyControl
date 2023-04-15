@@ -4,7 +4,13 @@
     {
 
         List<TransactionOutlay> outlays = new List<TransactionOutlay>();
-
+        public int CountItems
+        {
+            get
+            {
+                return outlays.Count;
+            }
+        }
         public ContainerOutlay() : base(TransactionOutlay.KIND_TRANSACTION)
         {
             loadData();
@@ -39,30 +45,51 @@
                 }
             }
         }
-        public override void AddNewName(string name)
+        public override bool AddNewName(string name)
         {
+            foreach (var outlay in outlays)
+            {
+                if (outlay.Name == name) return false;
+            }
             outlays.Add(new TransactionOutlay(name));
             base.AddNewName(name);
+            return true;
         }
 
         public override void AddValue(string value, string name)
         {
-            this.outlays[PositionSelected].AddTransactionValue(value);
-            base.AddValue(value, name);
+            if (this.PositionSelected > 1)
+            {
+                this.outlays[PositionSelected].AddTransactionValue(value);
+                base.AddValue(value, name);
+            }
+            else
+            {
+                throw new Exception("Outlay is not selected.");
+            }
+
+        }
+
+        public override void SetPosition(int position)
+        {
+            if (position >= -1)
+            {
+                this.PositionSelected = position;
+            }
+            else
+            {
+                throw new Exception("Wrong value for name of outlay.");
+            }
         }
         public override void SetPosition(string position)
         {
             if (int.TryParse(position, out int pos))
             {
-                if (pos - 1 >= -1)
-                {
-                    this.PositionSelected = pos - 1;
-                }
-
+                this.SetPosition(pos - 1);
             }
             else
             {
-                throw new Exception("Wrong value for name of Outlay.");
+                throw new Exception("Wrong value for name of outlay.");
             }
         }
         public override string ShowList()
@@ -72,7 +99,7 @@
             foreach (var outlay in outlays)
             {
                 i++;
-                menuList += $"| {i}. {outlay.Name} (Summary: {outlay.getStatistic().Sum})\n";
+                menuList += $"| {i}. {outlay.Name} \t(Summary: {outlay.getStatistic().Sum}\tAverage: {outlay.getStatistic().Average}\tMin: {outlay.getStatistic().Min}\tMax: {outlay.getStatistic().Max}\n";
             }
             return menuList;
         }

@@ -5,6 +5,7 @@
     {
         public delegate void AddTransaction(Object value, EventArgs args);
         public event AddTransaction OnAddTransaction;
+        public int CountItems { get;}
         public int PositionSelected { get;  protected set; }
         protected string FileName {  get; private set; }
         protected string Folder { get; private set; }
@@ -37,7 +38,7 @@
         protected abstract void loadData();
         public abstract string ShowListValues();
         public abstract string ShowList();
-        public virtual void AddNewName(string name)
+        public virtual bool AddNewName(string name)
         {
             using (var file = File.AppendText(FileName))
             {
@@ -47,6 +48,7 @@
             {
                 OnAddTransaction(this, new EventArgs());
             }
+            return true;
         }
 
         public virtual void AddValue(string value, string name)
@@ -61,6 +63,13 @@
             }
         }
         public virtual void SetPosition(string position)
+        {
+            if (OnAddTransaction != null)
+            {
+                OnAddTransaction(this, new EventArgs());
+            }
+        }
+        public virtual void SetPosition(int position)
         {
             if (OnAddTransaction != null)
             {

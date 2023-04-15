@@ -20,18 +20,17 @@ while (true)
 {
     try
     {
-
         var menu = Console.ReadLine();
         if (menu == "b")
         {
             display.SetPosition("0");
+            continue;
         }
         if (menu == "q")
         {
             break;
         }
         display.SetPosition(menu);
-        menu = "";
         switch (display.position)
         {
             case 11:
@@ -41,9 +40,10 @@ while (true)
                     if (input == "b")
                     {
                         display.SetPosition("1");
+                        containerIncome.SetPosition("0");
                         break;
                     }
-                    containerIncome.AddNewName(input);
+                    display.AlreadyExist(!containerIncome.AddNewName(input));
                     display.updateContainer(containerIncome);
                 }
                 break;
@@ -83,7 +83,7 @@ while (true)
                         display.SetPosition("2");
                         break;
                     }
-                    containerOutlay.AddNewName(input);
+                    display.AlreadyExist(!containerOutlay.AddNewName(input));
                     display.updateContainer(containerOutlay);
                 }
                 break;
@@ -94,6 +94,7 @@ while (true)
                     if (input == "b")
                     {
                         display.SetPosition("2");
+                        containerOutlay.SetPosition("0");
                         break;
                     }
                     containerOutlay.SetPosition(input);

@@ -13,7 +13,10 @@
 
         protected TransactionBase(string name)
         {
-            if (name == null) throw new ArgumentNullException("name");
+            if (name == "")
+            {
+                throw new ArgumentNullException("name");
+            }
             this.Name = name;
         }
         public virtual void AddTransactionValue(double value)
